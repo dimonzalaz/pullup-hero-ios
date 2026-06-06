@@ -5,14 +5,10 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       xcode: latest
-      groups:
-        - app_store_connect
       vars:
         BUNDLE_ID: "com.lazarchuk.pullupheropro"
         XCODE_PROJECT: "PullUpHero.xcodeproj"
         XCODE_SCHEME: "PullUpHero"
-    integrations:
-      app_store_connect: Codemagic
     scripts:
       - name: Show files
         script: |
@@ -29,7 +25,3 @@ workflows:
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
