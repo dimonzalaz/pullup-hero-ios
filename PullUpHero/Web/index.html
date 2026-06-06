@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🦸 Давид — Турнік-Герой</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- HERO INTRO SCREEN -->
+<div id="screen-intro" class="screen active">
+  <div class="stars-bg"></div>
+  <div class="intro-content">
+    <div class="hero-stage" id="mascot-intro" aria-label="Супергерой тренується на турніку">
+      <span class="stage-spark spark-one">✦</span>
+      <span class="stage-spark spark-two">✦</span>
+      <span class="stage-spark spark-three">★</span>
+      <svg class="hero-world" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img">
+        <defs>
+          <linearGradient id="capeGradient" x1="0" x2="1" y1="0" y2="1">
+            <stop stop-color="#ff6b6b"/>
+            <stop offset="1" stop-color="#ff2d55"/>
+          </linearGradient>
+          <linearGradient id="suitGradient" x1="0" x2="1" y1="0" y2="1">
+            <stop stop-color="#ffc857"/>
+            <stop offset="1" stop-color="#ff8f3d"/>
+          </linearGradient>
+          <radialGradient id="moonGradient">
+            <stop stop-color="#fff9ca"/>
+            <stop offset="1" stop-color="#ffd86b"/>
+          </radialGradient>
+          <filter id="heroGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#000" flood-opacity=".35"/>
+          </filter>
+        </defs>
+        <circle class="stage-moon" cx="285" cy="66" r="35" fill="url(#moonGradient)" opacity=".95"/>
+        <circle cx="275" cy="58" r="7" fill="#f5c95c" opacity=".55"/>
+        <circle cx="298" cy="76" r="5" fill="#f5c95c" opacity=".5"/>
+        <path d="M0 256 L0 218 25 218 25 198 44 198 44 232 65 232 65 184 85 184 85 214 112 214 112 193 130 193 130 256Z" fill="#101a37" opacity=".78"/>
+        <path d="M230 256 L230 220 251 220 251 194 270 194 270 230 292 230 292 177 314 177 314 210 338 210 338 187 360 187 360 256Z" fill="#101a37" opacity=".78"/>
+        <g class="bar-glow">
+          <rect x="35" y="54" width="290" height="14" rx="7" fill="#8fd8ff" opacity=".2"/>
+          <rect x="42" y="57" width="276" height="8" rx="4" fill="#d9f3ff"/>
+          <rect x="54" y="62" width="8" height="194" rx="4" fill="#7aa8c7"/>
+          <rect x="298" y="62" width="8" height="194" rx="4" fill="#7aa8c7"/>
+        </g>
+        <g class="intro-hero-character" filter="url(#heroGlow)">
+          <path class="hero-cape" d="M146 160 Q132 205 111 239 Q177 216 233 243 Q218 199 205 157Z" fill="url(#capeGradient)" opacity=".95"/>
+          <path d="M155 150 Q180 130 205 150 L212 198 Q180 222 148 198Z" fill="url(#suitGradient)"/>
+          <circle cx="180" cy="126" r="36" fill="#ffdab9"/>
+          <path d="M145 122 Q151 86 180 87 Q209 86 216 122 Q203 109 193 106 Q167 113 145 122Z" fill="#d9a441"/>
+          <circle cx="167" cy="125" r="5" fill="#26334d"/>
+          <circle cx="193" cy="125" r="5" fill="#26334d"/>
+          <circle cx="169" cy="123" r="1.8" fill="#fff"/>
+          <circle cx="195" cy="123" r="1.8" fill="#fff"/>
+          <path d="M168 140 Q180 150 192 140" stroke="#26334d" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="158" cy="136" rx="7" ry="4" fill="#ff9eaa" opacity=".45"/>
+          <ellipse cx="202" cy="136" rx="7" ry="4" fill="#ff9eaa" opacity=".45"/>
+          <path d="M154 153 L129 104 L112 68" stroke="#ffdab9" stroke-width="13" stroke-linecap="round" fill="none"/>
+          <path d="M206 153 L231 104 L248 68" stroke="#ffdab9" stroke-width="13" stroke-linecap="round" fill="none"/>
+          <circle cx="111" cy="65" r="9" fill="#ffdab9"/>
+          <circle cx="249" cy="65" r="9" fill="#ffdab9"/>
+          <polygon points="180,159 186,173 201,174 189,184 193,199 180,190 167,199 171,184 159,174 174,173" fill="#ffe057"/>
+          <path d="M163 198 L156 232" stroke="#ffb45d" stroke-width="14" stroke-linecap="round"/>
+          <path d="M197 198 L207 232" stroke="#ffb45d" stroke-width="14" stroke-linecap="round"/>
+          <path d="M154 231 L137 245" stroke="#6bd3ff" stroke-width="13" stroke-linecap="round"/>
+          <path d="M208 231 L223 246" stroke="#6bd3ff" stroke-width="13" stroke-linecap="round"/>
+        </g>
+        <ellipse cx="180" cy="264" rx="90" ry="10" fill="#080e20" opacity=".35"/>
+      </svg>
+      <div class="stage-caption">Місія: стати сильнішим за вчора</div>
+    </div>
+    <h1 class="intro-title">Давид — Турнік-Герой!</h1>
+    <p class="intro-sub">Давиде, тренуйся з допоміжною резинкою та ставай сильнішим 💪</p>
+    <button class="btn-start" onclick="App.start()">Починаємо!</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="screen-app" class="screen">
+  <!-- NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="today" onclick="App.switchTab('today')">
+      <span class="nav-icon">🏋️</span>
+      <span>Сьогодні</span>
+    </button>
+    <button class="nav-btn" data-tab="program" onclick="App.switchTab('program')">
+      <span class="nav-icon">📅</span>
+      <span>Програма</span>
+    </button>
+    <button class="nav-btn" data-tab="badges" onclick="App.switchTab('badges')">
+      <span class="nav-icon">🏆</span>
+      <span>Нагороди</span>
+    </button>
+    <button class="nav-btn" data-tab="stats" onclick="App.switchTab('stats')">
+      <span class="nav-icon">📊</span>
+      <span>Рекорди</span>
+    </button>
+    <button class="nav-btn" data-tab="settings" onclick="App.switchTab('settings')">
+      <span class="nav-icon">⚙️</span>
+      <span>Налаштування</span>
+    </button>
+  </nav>
+
+  <!-- TAB: TODAY -->
+  <div id="tab-today" class="tab-content active">
+    <div class="tab-header">
+      <div class="streak-badge" id="streak-display">
+        <span class="streak-fire">🔥</span>
+        <span id="streak-count">0</span>
+        <span class="streak-label">днів поспіль</span>
+      </div>
+      <div class="xp-bar-container">
+        <div class="xp-label">Рівень <span id="user-level">1</span> · <span id="user-xp">0</span> XP</div>
+        <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="today-card" id="today-card">
+      <div class="today-week-label">Тиждень <span id="cur-week">1</span>, День <span id="cur-day">1</span></div>
+      <div class="mission-route" aria-label="Прогрес проходження програми">
+        <div class="mission-route-top">
+          <span>🏠 Старт</span>
+          <span id="journey-label">0% шляху</span>
+          <span>👑 Фінал</span>
+        </div>
+        <div class="mission-track">
+          <div class="mission-fill" id="journey-fill"></div>
+          <div class="mission-hero" id="journey-hero">🦸</div>
+          <span class="route-star star-a">★</span>
+          <span class="route-star star-b">★</span>
+          <span class="route-star star-c">★</span>
+        </div>
+      </div>
+      <div class="today-mascot-small" id="mascot-today">
+        <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="40" cy="65" rx="20" ry="22" fill="#FFB347"/>
+          <path d="M20 54 Q12 78 8 90 Q40 72 72 90 Q68 78 60 54" fill="#FF4757" opacity="0.9"/>
+          <circle cx="40" cy="30" r="20" fill="#FFDAB9"/>
+          <circle cx="33" cy="27" r="4" fill="#2d2d2d"/>
+          <circle cx="47" cy="27" r="4" fill="#2d2d2d"/>
+          <circle cx="34.5" cy="25.5" r="1.5" fill="white"/>
+          <circle cx="48.5" cy="25.5" r="1.5" fill="white"/>
+          <path d="M32 38 Q40 46 48 38" stroke="#2d2d2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="28" cy="36" rx="4" ry="3" fill="#FFB6C1" opacity="0.6"/>
+          <ellipse cx="52" cy="36" rx="4" ry="3" fill="#FFB6C1" opacity="0.6"/>
+          <path d="M22 24 Q26 12 40 13 Q54 12 58 24" fill="#d9a441"/>
+          <polygon points="40,52 42,58 49,58 43,62 45,68 40,64 35,68 37,62 31,58 38,58" fill="#FFD700"/>
+          <line x1="20" y1="55" x2="6" y2="38" stroke="#FFDAB9" stroke-width="7" stroke-linecap="round"/>
+          <line x1="60" y1="55" x2="74" y2="38" stroke="#FFDAB9" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="6" cy="36" r="6" fill="#FFDAB9"/>
+          <circle cx="74" cy="36" r="6" fill="#FFDAB9"/>
+        </svg>
+      </div>
+      <div class="today-exercise-title" id="today-title">Завантаження...</div>
+      <div class="today-sets" id="today-sets"></div>
+      <div class="today-note" id="today-note">Роби рухи плавно і з дорослим поруч.</div>
+    </div>
+
+    <div class="workout-log" id="workout-log" style="display:none">
+      <h3>Поточне тренування</h3>
+      <div id="log-sets"></div>
+      <button class="btn-finish" onclick="App.finishWorkout()">✅ Завершити тренування!</button>
+    </div>
+
+    <button class="btn-train" id="btn-train" onclick="App.startWorkout()">Тренуватись! 💪</button>
+  </div>
+
+  <!-- TAB: PROGRAM -->
+  <div id="tab-program" class="tab-content">
+    <h2 class="tab-title">📅 Моя програма</h2>
+    <p class="tab-sub">8 тижнів спокійного прогресу з допоміжною резинкою.</p>
+    <div class="program-guide">
+      <div class="program-guide-icon">🛡️</div>
+      <div><strong>Старт: 3 підходи × 2 повторення.</strong><br>Тренування — тричі на тиждень із днями відпочинку. Якщо рух стає неакуратним або щось болить, зупинись і скажи дорослому.</div>
+    </div>
+    <div id="program-weeks"></div>
+  </div>
+
+  <!-- TAB: BADGES -->
+  <div id="tab-badges" class="tab-content">
+    <h2 class="tab-title">🏆 Мої нагороди</h2>
+    <p class="tab-sub">Збери їх усі!</p>
+    <div id="badges-grid"></div>
+  </div>
+
+  <!-- TAB: STATS -->
+  <div id="tab-stats" class="tab-content">
+    <h2 class="tab-title">📊 Мої рекорди</h2>
+    <div id="stats-content"></div>
+  </div>
+
+  <!-- TAB: SETTINGS -->
+  <div id="tab-settings" class="tab-content">
+    <h2 class="tab-title">⚙️ Налаштування</h2>
+    <p class="tab-sub">Керуй даними цього пристрою.</p>
+    <div class="settings-card">
+      <div class="settings-icon">💾</div>
+      <div class="settings-copy">
+        <h3>Локальний прогрес</h3>
+        <p>Тренування, XP та нагороди зберігаються тільки у localStorage цього браузера.</p>
+      </div>
+    </div>
+    <div class="settings-card">
+      <div class="settings-icon">🔔</div>
+      <div class="settings-copy settings-copy-wide">
+        <h3>Щоденне нагадування</h3>
+        <p>iPhone або iPad може нагадати Давиду про коротку місію один раз на день.</p>
+        <div class="reminder-controls">
+          <label class="reminder-toggle">
+            <input id="reminder-enabled" type="checkbox" />
+            <span>Нагадувати</span>
+          </label>
+          <input id="reminder-time" class="reminder-time" type="time" value="18:00" aria-label="Час нагадування" />
+        </div>
+        <p id="reminder-status" class="reminder-status">Нагадування вимкнено.</p>
+      </div>
+    </div>
+    <div class="settings-card danger-card">
+      <div class="settings-icon">🧹</div>
+      <div class="settings-copy">
+        <h3>Почати спочатку</h3>
+        <p>Очистити localStorage і видалити весь збережений прогрес на цьому пристрої.</p>
+        <button id="btn-reset-data" type="button" class="btn-reset-data">Стерти локальні дані</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CELEBRATION OVERLAY -->
+<div id="celebration" class="celebration-overlay" style="display:none">
+  <div class="celebration-box">
+    <div class="celebration-emoji" id="cel-emoji">🎉</div>
+    <div class="celebration-title" id="cel-title">Молодець!</div>
+    <div class="celebration-sub" id="cel-sub">Ти крутий!</div>
+    <button class="btn-cel-close" onclick="App.closeCelebration()">Вперед! 🚀</button>
+  </div>
+  <div class="confetti-container" id="confetti"></div>
+</div>
+
+<!-- RESET CONFIRM OVERLAY -->
+<div id="reset-confirm" class="reset-overlay" style="display:none">
+  <div class="reset-box">
+    <div class="reset-emoji">⚠️</div>
+    <div class="reset-title">Стерти весь прогрес?</div>
+    <div class="reset-sub">Цю дію не можна скасувати. Усі тренування, XP та нагороди буде видалено з localStorage.</div>
+    <div class="reset-actions">
+      <button id="btn-reset-cancel" type="button" class="btn-reset-cancel">Скасувати</button>
+      <button id="btn-reset-confirm" type="button" class="btn-reset-confirm">Так, стерти</button>
+    </div>
+  </div>
+</div>
+
+<!-- BADGE EARN OVERLAY -->
+<div id="badge-earned" class="badge-overlay" style="display:none">
+  <div class="badge-earned-box">
+    <div class="badge-earned-icon" id="be-icon">🥇</div>
+    <div class="badge-earned-name" id="be-name">Нагорода!</div>
+    <div class="badge-earned-desc" id="be-desc">Опис</div>
+    <button class="btn-cel-close" onclick="App.closeBadge()">Супер! ⭐</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
