@@ -17,6 +17,9 @@ workflows:
         XCODE_PROJECT: "PullUpHero.xcodeproj"
         XCODE_SCHEME: "PullUpHero"
 
+    integrations:
+      app_store_connect: DimonzaLLC
+
     scripts:
       - name: Show files
         script: |
