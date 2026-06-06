@@ -24,16 +24,34 @@ workflows:
           ls -la
           find . -name "*.xcodeproj"
           find . -name "*.pbxproj"
+          find . -name "*.swift"
+          find . -name "*.html"
+          find . -name "*.js"
+          find . -name "*.css"
 
       - name: Set up code signing
         script: |
           xcode-project use-profiles
 
+      - name: Show signing after profile setup
+        script: |
+          xcodebuild -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -showBuildSettings | grep -E "PRODUCT_BUNDLE_IDENTIFIER|DEVELOPMENT_TEAM|CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE_SPECIFIER"
+
       - name: Build ipa
         script: |
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+            --scheme "$XCODE_SCHEME" \
+            --configuration Release \
+            --export-method app-store
+
+      - name: Inspect ipa
+        script: |
+          ls -lah build/ios/ipa || true
+          unzip -l build/ios/ipa/*.ipa | head -120 || true
 
     artifacts:
       - build/ios/ipa/*.ipa
