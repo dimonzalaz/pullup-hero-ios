@@ -1,30 +1,48 @@
 workflows:
   ios-release:
     name: iOS Release
+
     max_build_duration: 60
     instance_type: mac_mini_m2
+
     environment:
       xcode: latest
+
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.lazarchuk.pullupheropro
+
       vars:
         BUNDLE_ID: "com.lazarchuk.pullupheropro"
         XCODE_PROJECT: "PullUpHero.xcodeproj"
         XCODE_SCHEME: "PullUpHero"
+
     scripts:
       - name: Show files
         script: |
+          pwd
           ls -la
-          find PullUpHero.xcodeproj -maxdepth 2 -type f -print
+          find . -name "*.xcodeproj"
+          find . -name "*.pbxproj"
+
       - name: Set up code signing
         script: |
           xcode-project use-profiles
+
       - name: Build ipa
         script: |
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME"
+
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      email:
+        recipients:
+          - dima@lazarchuk.com
+        notify:
+          success: true
+          failure: true
