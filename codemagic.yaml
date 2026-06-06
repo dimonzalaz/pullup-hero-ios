@@ -5,6 +5,9 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.lazarchuk.pullupheropro
       vars:
         BUNDLE_ID: "com.lazarchuk.pullupheropro"
         XCODE_PROJECT: "PullUpHero.xcodeproj"
