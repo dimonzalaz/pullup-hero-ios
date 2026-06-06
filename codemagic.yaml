@@ -44,9 +44,7 @@ workflows:
         script: |
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --configuration Release \
-            --export-method app-store
+            --scheme "$XCODE_SCHEME"
 
       - name: Inspect ipa
         script: |
