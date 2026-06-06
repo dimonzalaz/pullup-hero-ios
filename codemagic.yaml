@@ -43,7 +43,7 @@ workflows:
             -configuration Release \
             -showBuildSettings | grep -E "PRODUCT_BUNDLE_IDENTIFIER|DEVELOPMENT_TEAM|CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE_SPECIFIER"
 
-- name: Increment build number
+      - name: Increment build number
         script: |
           agvtool new-version -all $BUILD_NUMBER
 
