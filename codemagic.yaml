@@ -1,0 +1,36 @@
+workflows:
+  ios-release:
+    name: iOS Release
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+      groups:
+        - app_store_connect
+      vars:
+        BUNDLE_ID: "com.lazarchuk.pullupheropro"
+        XCODE_PROJECT: "PullUpHero.xcodeproj"
+        XCODE_SCHEME: "PullUpHero"
+        APP_STORE_APPLE_ID: ""
+    integrations:
+      app_store_connect: Codemagic
+    scripts:
+      - name: Show files
+        script: |
+          ls -la
+          find PullUpHero.xcodeproj -maxdepth 2 -type f -print
+      - name: Set up code signing
+        script: |
+          xcode-project use-profiles
+      - name: Build ipa
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
