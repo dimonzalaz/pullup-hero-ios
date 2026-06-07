@@ -77,10 +77,10 @@
         </g>
         <ellipse cx="180" cy="264" rx="90" ry="10" fill="#080e20" opacity=".35"/>
       </svg>
-      <div class="stage-caption">Місія: стати сильнішим за вчора</div>
+      <div class="stage-caption">Місія: стати сильнішим</div>
     </div>
     <h1 class="intro-title">Давид — Турнік-Герой!</h1>
-    <p class="intro-sub">Давиде, тренуйся з допоміжною резинкою та ставай сильнішим 💪</p>
+    <p class="intro-sub">Ти зробив перший крок!<br>Гордий собою 💪</p>
     <button class="btn-start" onclick="App.start()">Починаємо!</button>
   </div>
 </div>
@@ -176,7 +176,7 @@
     <div class="workout-log" id="workout-log" style="display:none">
       <h3>Поточне тренування</h3>
       <div id="log-sets"></div>
-      <button class="btn-finish" onclick="App.openDifficultyCheck()">✅ Завершити</button>
+      <button class="btn-finish" id="btn-finish-workout" onclick="App.openDifficultyCheck()" style="display:none">✅ Завершити</button>
     </div>
 
     <button class="btn-train" id="btn-train" onclick="App.startWorkout()">Тренуватись 💪</button>

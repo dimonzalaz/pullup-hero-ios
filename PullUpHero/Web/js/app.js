@@ -642,6 +642,8 @@ const App = {
     document.getElementById('btn-train').style.display = 'none';
     document.getElementById('today-card') && (document.getElementById('today-card').style.display = 'none');
     document.getElementById('workout-log').style.display = 'block';
+    const finishBtn = document.getElementById('btn-finish-workout');
+    if (finishBtn) finishBtn.style.display = 'none';
 
     this.renderWorkoutLog();
   },
@@ -650,11 +652,11 @@ const App = {
     const html = this.workoutSets.map((s, i) => `
       <div class="log-set-row" id="set-row-${i}">
         <span class="log-set-label">Підхід ${i + 1}</span>
-        ${s.done ? `<span style="flex:1;color:var(--text2);font-size:0.85rem">${s.reps}</span><span class="set-done-mark">✅</span>` :
+        ${s.done ? `<span class="actual-reps-done">${s.actual || 0} раз${(s.actual || 0) === 1 ? '' : 'и'}</span><span class="target-reps-small">план: ${s.reps}</span><span class="set-done-mark">✅</span>` :
           `<button class="reps-btn minus" onclick="App.changeReps(${i},-1)">−</button>
            <span class="reps-count" id="reps-${i}">${typeof s.actual === 'number' && s.actual > 0 ? s.actual : '?'}</span>
            <button class="reps-btn plus" onclick="App.changeReps(${i},1)">+</button>
-           <button class="btn-set-done" onclick="App.doneSet(${i})">Зробив! ✓</button>`
+           <button class="btn-set-done" onclick="App.doneSet(${i})">Зробив</button>`
         }
       </div>
     `).join('');
@@ -673,11 +675,27 @@ const App = {
     // A child may finish the next set before the timer reaches zero.
     // Always close the previous timer first so toasts never stack.
     this.hideRestToast();
+    if (!this.workoutSets[i]) return;
+    if (!this.workoutSets[i].actual || this.workoutSets[i].actual < 0) {
+      this.workoutSets[i].actual = Number(this.workoutSets[i].target || 0);
+    }
     this.workoutSets[i].done = true;
     NativeBridge.send('setCompleted');
     this.renderWorkoutLog();
     const allDone = this.workoutSets.every(s => s.done);
+    const finishBtn = document.getElementById('btn-finish-workout');
+    if (finishBtn) finishBtn.style.display = allDone ? 'block' : 'none';
     if (!allDone) this.showRestToast(this.currentTraining.data.rest || 90);
+  },
+
+  showMiniMessage(text) {
+    this.hideRestToast();
+    const toast = document.createElement('div');
+    toast.className = 'rest-toast mini-message';
+    toast.textContent = text;
+    document.body.appendChild(toast);
+    this.activeRestToast = toast;
+    this.activeRestTimeout = setTimeout(() => this.hideRestToast(), 1800);
   },
 
   hideRestToast() {
@@ -709,6 +727,11 @@ const App = {
     this.hideRestToast();
     if (!this.currentTraining || this.hasCompletedTaskToday()) {
       this.renderToday();
+      return;
+    }
+    const allDone = this.workoutSets.every(s => s.done);
+    if (!allDone) {
+      this.showMiniMessage('Спочатку відміть усі підходи ✅');
       return;
     }
     const modal = document.getElementById('difficulty-modal');
