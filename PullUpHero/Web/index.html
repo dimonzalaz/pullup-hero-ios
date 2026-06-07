@@ -176,7 +176,7 @@
     <div class="workout-log" id="workout-log" style="display:none">
       <h3>Поточне тренування</h3>
       <div id="log-sets"></div>
-      <button class="btn-finish" id="btn-finish-workout" onclick="App.openDifficultyCheck()" style="display:none">✅ Завершити</button>
+      <button type="button" class="btn-finish" id="btn-finish-workout" style="display:none">✅ Завершити</button>
     </div>
 
     <button class="btn-train" id="btn-train" onclick="App.startWorkout()">Тренуватись 💪</button>
@@ -278,6 +278,23 @@
     <div class="badge-earned-name" id="be-name">Нагорода!</div>
     <div class="badge-earned-desc" id="be-desc">Опис</div>
     <button class="btn-cel-close" onclick="App.closeBadge()">Супер! ⭐</button>
+  </div>
+</div>
+
+
+<!-- DIFFICULTY CHECK MODAL -->
+<div id="difficulty-modal" class="modal" style="display:none">
+  <div class="modal-card difficulty-card">
+    <div class="modal-emoji">🎯</div>
+    <h2>Як було?</h2>
+    <p>Обери чесно. Так програма стане кращою.</p>
+    <div class="difficulty-options">
+      <button type="button" data-result="easy" class="difficulty-btn">😊<span>Легко</span></button>
+      <button type="button" data-result="normal" class="difficulty-btn">🙂<span>Нормально</span></button>
+      <button type="button" data-result="hard" class="difficulty-btn">😅<span>Важко</span></button>
+      <button type="button" data-result="missed" class="difficulty-btn missed">❌<span>Не вийшло</span></button>
+    </div>
+    <button type="button" class="modal-close" id="btn-difficulty-cancel">Назад</button>
   </div>
 </div>
 

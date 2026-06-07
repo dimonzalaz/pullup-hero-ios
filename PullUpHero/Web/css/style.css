@@ -1327,3 +1327,41 @@ body {
     font-size: clamp(1.85rem, 8vw, 2.35rem) !important;
   }
 }
+
+
+/* ======= DIFFICULTY MODAL FIX ======= */
+.difficulty-card {
+  max-width: 420px;
+}
+.difficulty-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .65rem;
+  margin: 1rem 0 .7rem;
+}
+.difficulty-btn {
+  min-height: 86px;
+  border: 1px solid rgba(143,216,255,.22);
+  border-radius: 18px;
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 1.65rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  cursor:pointer;
+}
+.difficulty-btn span {
+  font-size: .75rem;
+}
+.difficulty-btn.missed {
+  border-color: rgba(255,107,107,.28);
+}
+@media (max-width: 380px) {
+  .difficulty-options { grid-template-columns: 1fr; }
+  .difficulty-btn { min-height: 68px; flex-direction: row; font-size: 1.35rem; }
+}

@@ -735,7 +735,11 @@ const App = {
       return;
     }
     const modal = document.getElementById('difficulty-modal');
-    if (modal) modal.style.display = 'flex';
+    if (modal) {
+      modal.style.display = 'flex';
+    } else {
+      this.finishWorkout('normal');
+    }
   },
 
   closeDifficultyCheck() {
@@ -961,6 +965,14 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-reset-data')?.addEventListener('click', () => App.openResetConfirm());
   document.getElementById('btn-reset-cancel')?.addEventListener('click', () => App.closeResetConfirm());
   document.getElementById('btn-reset-confirm')?.addEventListener('click', () => App.resetLocalStorage());
+  document.getElementById('btn-finish-workout')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    App.openDifficultyCheck();
+  });
+  document.getElementById('btn-difficulty-cancel')?.addEventListener('click', () => App.closeDifficultyCheck());
+  document.querySelectorAll('.difficulty-btn[data-result]').forEach(btn => {
+    btn.addEventListener('click', () => App.finishWorkout(btn.dataset.result || 'normal'));
+  });
   document.getElementById('reminder-enabled')?.addEventListener('change', () => App.updateReminderSettings());
   document.getElementById('reminder-time')?.addEventListener('change', () => App.updateReminderSettings());
   document.getElementById('reminder-hour')?.addEventListener('change', () => App.updateReminderSettings());
