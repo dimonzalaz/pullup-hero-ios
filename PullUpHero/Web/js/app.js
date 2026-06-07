@@ -723,6 +723,21 @@ const App = {
     this.activeRestTimeout = setTimeout(() => this.hideRestToast(), (seconds + 1) * 1000);
   },
 
+  finishWorkoutDirect() {
+    this.hideRestToast();
+    if (!this.currentTraining || this.hasCompletedTaskToday()) {
+      document.getElementById('workout-log').style.display = 'none';
+      this.renderToday();
+      return;
+    }
+    const allDone = this.workoutSets.every(s => s.done);
+    if (!allDone) {
+      this.showMiniMessage('Спочатку відміть усі підходи ✅');
+      return;
+    }
+    this.finishWorkout('normal');
+  },
+
   openDifficultyCheck() {
     this.hideRestToast();
     if (!this.currentTraining || this.hasCompletedTaskToday()) {
@@ -960,15 +975,22 @@ const App = {
 window.App = App;
 
 // Auto-start if already started
+
+document.addEventListener('click', (event) => {
+  const target = event.target && event.target.closest ? event.target.closest('#btn-finish-workout') : null;
+  if (target) {
+    event.preventDefault();
+    App.finishWorkoutDirect();
+  }
+});
+
 window.addEventListener('DOMContentLoaded', () => {
   // Add explicit listeners as a fallback for restrictive browser contexts.
   document.getElementById('btn-reset-data')?.addEventListener('click', () => App.openResetConfirm());
   document.getElementById('btn-reset-cancel')?.addEventListener('click', () => App.closeResetConfirm());
   document.getElementById('btn-reset-confirm')?.addEventListener('click', () => App.resetLocalStorage());
-  document.getElementById('btn-finish-workout')?.addEventListener('click', (event) => {
-    event.preventDefault();
-    App.openDifficultyCheck();
-  });
+  document.getElementById('btn-finish-workout')?.addEventListener('click', (event) => { event.preventDefault(); App.finishWorkoutDirect(); });
+  document.getElementById('btn-finish-workout')?.addEventListener('touchend', (event) => { event.preventDefault(); App.finishWorkoutDirect(); }, { passive: false });
   document.getElementById('btn-difficulty-cancel')?.addEventListener('click', () => App.closeDifficultyCheck());
   document.querySelectorAll('.difficulty-btn[data-result]').forEach(btn => {
     btn.addEventListener('click', () => App.finishWorkout(btn.dataset.result || 'normal'));
