@@ -59,9 +59,6 @@ struct LocalWebView: UIViewRepresentable {
             case "workoutCompleted":
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 soundPlayer.playSuccessTone()
-            case "rewardEarned":
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                soundPlayer.playRewardTone()
             case "scheduleReminder":
                 let hour = body["hour"] as? Int ?? 18
                 let minute = body["minute"] as? Int ?? 0

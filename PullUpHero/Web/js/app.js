@@ -875,7 +875,6 @@ const App = {
 
   pendingBadges: [],
   showBadgeEarned(b) {
-    NativeBridge.send('rewardEarned');
     document.getElementById('be-icon').textContent = b.emoji;
     document.getElementById('be-name').textContent = b.name;
     document.getElementById('be-desc').textContent = b.desc;
